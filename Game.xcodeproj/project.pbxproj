@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2696C4BC1C856DBA003BD10F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2696C4BB1C856DBA003BD10F /* main.cpp */; };
+		2696C4C31C856DFF003BD10F /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2696C4C21C856DFF003BD10F /* SDL2.framework */; };
+		2696C4C51C856E78003BD10F /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2696C4C41C856E78003BD10F /* SDL2_image.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		2696C4B81C856DBA003BD10F /* Game */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Game; sourceTree = BUILT_PRODUCTS_DIR; };
 		2696C4BB1C856DBA003BD10F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2696C4C21C856DFF003BD10F /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		2696C4C41C856E78003BD10F /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +36,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2696C4C51C856E78003BD10F /* SDL2_image.framework in Frameworks */,
+				2696C4C31C856DFF003BD10F /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +47,8 @@
 		2696C4AF1C856DBA003BD10F = {
 			isa = PBXGroup;
 			children = (
+				2696C4C41C856E78003BD10F /* SDL2_image.framework */,
+				2696C4C21C856DFF003BD10F /* SDL2.framework */,
 				2696C4BA1C856DBA003BD10F /* Game */,
 				2696C4B91C856DBA003BD10F /* Products */,
 			);
@@ -207,6 +215,10 @@
 		2696C4C01C856DBA003BD10F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -214,6 +226,10 @@
 		2696C4C11C856DBA003BD10F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
