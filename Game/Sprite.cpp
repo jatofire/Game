@@ -6,7 +6,7 @@
 //  Copyright © 2016 Christopher Moltzen. All rights reserved.
 //
 
-#include "Sprite.h"
+#include "Sprite.hpp"
 
 
 
