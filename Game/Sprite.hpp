@@ -16,8 +16,15 @@ class Sprite {
 
 public:
 
-    Sprite();
-
+    Sprite(std::string t, SDL_Renderer *r);
+    
+    SDL_Texture* texture;
+    SDL_Rect* targetRect;
+    SDL_Rect* sourceRect;
+    SDL_Renderer *renderer;
+    
+    
+    
 private:
     SDL_Texture* loadTexture( std::string path,SDL_Renderer *renderer  );
     

@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include "SDL2/SDL.h"
-#include "Sprite.h"
+#include "Sprite.hpp"
 #include <iostream>
 #endif /* Game_hpp */
 
@@ -29,7 +29,7 @@ public:
     
     bool init();
     void run();
-    void draw();
+    void draw(Sprite *s);
     
     // Variables
     bool quit;

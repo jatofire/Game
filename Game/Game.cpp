@@ -18,6 +18,13 @@ void Game::run() {
     SDL_Event e;
     float minFrameRate = 1000/60;
     //While application is running
+   
+    
+    Sprite *s = new Sprite("avatar.png", renderer);
+    SDL_Rect renderQuad = { 43, 43, 43, 43 };
+
+    s->targetRect = &renderQuad;
+    
     while( !quit )
     {
         
@@ -32,8 +39,53 @@ void Game::run() {
             {
                 quit = true;
             }
+            //Set texture based on current keystate
+            const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+            if( currentKeyStates[ SDL_SCANCODE_UP ] )
+            {
+                           }
+            else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
+            {
+                
+            }
+            else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
+            {
+              std::cout << "LEFT" << std::endl;
+                SDL_Rect renderQuad = { s->targetRect->x + 2, 43, 43, 43 };
+                
+                s->targetRect = &renderQuad;
+            }
+            else if( currentKeyStates[ SDL_SCANCODE_W] )
+            {
+               std::cout << "LEFTw" << std::endl;
+            }
+            else
+            {
+            }
+            
+            
+            if (e.type == SDL_MOUSEBUTTONDOWN)
+            {
+                /* If the left button was pressed. */
+                if (e.button.button == SDL_BUTTON_LEFT) {
+                    
+                    int x = e.button.x;
+                    int y = e.button.y;
+                    
+                    printf("Click x: %d y: %d\n", x, y);
+                    SDL_Rect renderQuad = { x, y, s->targetRect->w + 10, s->targetRect->h + 10 };
+                    
+                    s->targetRect = &renderQuad;
+                    
+                }
+                /* Quit the application */
+                    
+            }
+            
+            
+     
         }
-        
+      
         
         
         // Handle Update
@@ -43,7 +95,7 @@ void Game::run() {
         
         
         
-        
+        draw(s);
         
        
         
@@ -51,7 +103,7 @@ void Game::run() {
         Uint32 endTime = SDL_GetTicks();
         
         if((endTime - startTime) < minFrameRate) {
-            //SDL_Delay(minFrameRate - (endTime - startTime));
+            SDL_Delay(minFrameRate - (endTime - startTime));
         }
         
        //                                   std::cout << 1000 / (SDL_GetTicks() - startTime) << std::endl;
@@ -129,18 +181,14 @@ bool Game::init()
 }
 
 
-void Game::draw() {
-    SDL_SetRenderDrawColor( renderer, 0xFF, 0x00, 0xFF, 0xFF );
+void Game::draw(Sprite *s) {
+    SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0xFF );
     
     //Clear screen
     SDL_RenderClear( renderer );
-    
-    ////Render texture to screen
-    //SDL_Rect renderQuad = { 43, 43, 43, 43 };
-    //SDL_RenderCopy( renderer, gTexture, NULL,&renderQuad);
-    
-    
-    
+
+    SDL_RenderCopy( renderer, s->texture, s->sourceRect, s->targetRect);
+
     //Update screen
     SDL_RenderPresent( renderer );
 }

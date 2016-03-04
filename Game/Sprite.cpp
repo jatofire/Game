@@ -11,7 +11,12 @@
 
 
 
-
+Sprite::Sprite(std::string t, SDL_Renderer *r) {
+    renderer = r;
+    texture = loadTexture(t, renderer);
+    sourceRect = NULL;
+    targetRect = NULL;
+}
            
            
            
