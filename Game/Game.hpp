@@ -10,8 +10,9 @@
 #define Game_hpp
 
 #include <stdio.h>
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "Sprite.hpp"
+#include "GameObject.hpp"
 #include <iostream>
 #endif /* Game_hpp */
 
@@ -28,8 +29,9 @@ public:
     // Functions
     
     bool init();
+	void draw(GameObject * obj);
     void run();
-    void draw(Sprite *s);
+  
     
     // Variables
     bool quit;

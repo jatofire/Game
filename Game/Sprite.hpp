@@ -10,7 +10,8 @@
 #define Sprite_hpp
 #include <string>
 #include <stdio.h>
-#include "SDL2_image/SDL_image.h"
+#include "SDL_image.h"
+#include <iostream>
 
 class Sprite {
 

@@ -8,27 +8,14 @@
 
 #include <iostream>
 #include "Game.hpp"
-
-
-
-
-
-
-
-
-
-
+#include <SDL.h>
+#undef main
 
 int main(int argc, const char * argv[]) {
     
-    Game *game = new Game();
-    game->init();
-    game->run();
-
-
-    
-    
-   
-    
+	Game *game = new Game();
+	game->init();
+	game->run();
+		
     return 0;
 }

@@ -13,6 +13,10 @@ Game::Game() {
     quit = false;
 }
 
+Game::~Game()
+{
+}
+
 void Game::run() {
     
     SDL_Event e;
@@ -20,10 +24,10 @@ void Game::run() {
     //While application is running
    
     
-    Sprite *s = new Sprite("avatar.png", renderer);
+   
     SDL_Rect renderQuad = { 43, 43, 43, 43 };
-
-    s->targetRect = &renderQuad;
+	GameObject *player = new GameObject(&renderQuad, renderer);
+    
     
     while( !quit )
     {
@@ -51,9 +55,7 @@ void Game::run() {
             else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
             {
               std::cout << "LEFT" << std::endl;
-                SDL_Rect renderQuad = { s->targetRect->x + 2, 43, 43, 43 };
-                
-                s->targetRect = &renderQuad;
+              
             }
             else if( currentKeyStates[ SDL_SCANCODE_W] )
             {
@@ -73,9 +75,9 @@ void Game::run() {
                     int y = e.button.y;
                     
                     printf("Click x: %d y: %d\n", x, y);
-                    SDL_Rect renderQuad = { x, y, s->targetRect->w + 10, s->targetRect->h + 10 };
+                  
                     
-                    s->targetRect = &renderQuad;
+					player->moveTo(x, y);
                     
                 }
                 /* Quit the application */
@@ -95,7 +97,7 @@ void Game::run() {
         
         
         
-        draw(s);
+        draw(player);
         
        
         
@@ -181,13 +183,13 @@ bool Game::init()
 }
 
 
-void Game::draw(Sprite *s) {
+void Game::draw(GameObject *obj) {
     SDL_SetRenderDrawColor( renderer, 0x00, 0x00, 0x00, 0xFF );
     
     //Clear screen
     SDL_RenderClear( renderer );
 
-    SDL_RenderCopy( renderer, s->texture, s->sourceRect, s->targetRect);
+    SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
 
     //Update screen
     SDL_RenderPresent( renderer );
