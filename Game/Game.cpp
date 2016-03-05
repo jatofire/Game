@@ -47,7 +47,7 @@ void Game::run() {
             const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
             if( currentKeyStates[ SDL_SCANCODE_UP ] )
             {
-                           }
+            }
             else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
             {
                 
@@ -77,12 +77,15 @@ void Game::run() {
                     printf("Click x: %d y: %d\n", x, y);
                   
                     
-					player->moveTo(x, y);
+					player->moveTo(x, y, 1.0f);
                     
                 }
                 /* Quit the application */
                     
             }
+			if (e.type == SDL_MOUSEMOTION) {
+				player->moveTo(x, y, 1.0f);
+			}
             
             
      
@@ -91,7 +94,7 @@ void Game::run() {
         
         
         // Handle Update
-        
+		player->update();
         
         // Handle Rendering
         
@@ -189,8 +192,24 @@ void Game::draw(GameObject *obj) {
     //Clear screen
     SDL_RenderClear( renderer );
 
-    SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
+   
+	SDL_SetRenderDrawColor(renderer, 0x11, 0x11, 0x11, 0xFF);
+	for (int i = 0; i < 800; i += 32) {
+		//
+			SDL_RenderDrawLine(renderer, i, 0, i, 450);
+	}
+	for (int j = 0; j < 450; j += 32) {
+		SDL_RenderDrawLine(renderer, 0, j, 800, j);
+	}
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0x88);
+	
+	int difX = obj->getRect()->x % 32;
+	int difY = obj->getRect()->y % 32;
 
+	SDL_Rect r = {obj->getRect()->x - difX, obj->getRect()->y - difY, obj->getRect()->w, obj->getRect()->h };
+	SDL_RenderFillRect(renderer, &r);
+	
+	 SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
     //Update screen
     SDL_RenderPresent( renderer );
 }
