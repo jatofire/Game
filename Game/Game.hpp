@@ -14,6 +14,7 @@
 #include "Sprite.hpp"
 #include "GameObject.hpp"
 #include <iostream>
+#include <vector>
 #endif /* Game_hpp */
 
 
@@ -35,7 +36,8 @@ public:
     
     // Variables
     bool quit;
-    
+	std::vector<SDL_Rect> rects;
+
 private:
     
     // Functions

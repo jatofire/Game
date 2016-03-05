@@ -24,7 +24,7 @@ void Game::run() {
     //While application is running
    
     
-   
+	
     SDL_Rect renderQuad = { 43, 43, 43, 43 };
 	GameObject *player = new GameObject(&renderQuad, renderer);
     
@@ -75,16 +75,20 @@ void Game::run() {
                     int y = e.button.y;
                     
                     printf("Click x: %d y: %d\n", x, y);
-                  
-                    
-					player->moveTo(x, y, 1.0f);
+					int x_dif = x % 32;
+					int y_dif = y % 32;
+					SDL_Rect r = { x - x_dif, y - y_dif, 32, 32 };
+					rects.push_back(r);
+					//player->moveTo(x, y, 1.0f);
                     
                 }
                 /* Quit the application */
                     
             }
 			if (e.type == SDL_MOUSEMOTION) {
-				player->moveTo(x, y, 1.0f);
+				int x = e.button.x;
+				int y = e.button.y;
+				
 			}
             
             
@@ -209,6 +213,10 @@ void Game::draw(GameObject *obj) {
 	SDL_Rect r = {obj->getRect()->x - difX, obj->getRect()->y - difY, obj->getRect()->w, obj->getRect()->h };
 	SDL_RenderFillRect(renderer, &r);
 	
+	for (int k = 0; k < rects.size(); k++) {
+		SDL_RenderFillRect(renderer, &rects[k]);
+	}
+
 	 SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
     //Update screen
     SDL_RenderPresent( renderer );
