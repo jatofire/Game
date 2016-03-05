@@ -2,7 +2,7 @@
 
 
 #include <stdio.h>
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "Sprite.hpp"
 #include <math.h>
 

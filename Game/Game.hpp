@@ -10,7 +10,7 @@
 #define Game_hpp
 
 #include <stdio.h>
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "Sprite.hpp"
 #include "GameObject.hpp"
 #include <iostream>
@@ -47,6 +47,6 @@ private:
     SDL_Window *window;
     SDL_Renderer *renderer;
     
-    GameObject *objectAt(int x, int y, std::vector<GameObject>* objects);
+    void objectAt(int x, int y);
     
 };

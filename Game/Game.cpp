@@ -75,12 +75,9 @@ void Game::run() {
                     int y = e.button.y;
                     
                     printf("Click x: %d y: %d\n", x, y);
-<<<<<<< HEAD
-					int x_dif = x % 32;
-					int y_dif = y % 32;
-					SDL_Rect r = { x - x_dif, y - y_dif, 32, 32 };
-					rects.push_back(r);
-=======
+
+					
+
                     int dif_x = x % 32;
                     int dif_y = y % 32;
                     
@@ -88,7 +85,7 @@ void Game::run() {
                     GameObject o = GameObject(r, renderer);
                     objs.push_back(o);
                    // std::cout << objs.size() << std::endl;
->>>>>>> e780b45e493bcb2ccd079e3e7cc51e12029fed41
+
 					//player->moveTo(x, y, 1.0f);
                     
                 }
@@ -98,6 +95,8 @@ void Game::run() {
                     int y = e.button.y;
                     
                     printf("Right Click x: %d y: %d\n", x, y);
+					objectAt(x, y);
+					//std::cout << "Hello: "  << o.getRect().x << std::endl;
                 }
                     
             }
@@ -106,17 +105,15 @@ void Game::run() {
             
             
 			if (e.type == SDL_MOUSEMOTION) {
-<<<<<<< HEAD
-				int x = e.button.x;
-				int y = e.button.y;
+
 				
-=======
+				
+
                 int x = e.button.x;
                 int y = e.button.y;
-                GameObject *o = objectAt(x, y, &objs);
+             
             
-            
->>>>>>> e780b45e493bcb2ccd079e3e7cc51e12029fed41
+
 			}
             
             
@@ -153,6 +150,20 @@ void Game::run() {
     
     // Clean up
     SDL_Quit();
+}
+
+void Game::objectAt(int x, int y)
+{
+	SDL_Rect checkRect = { x, y, 1, 1 };
+	SDL_Rect result;
+	for (int i = 0; i < objs.size(); i++) {
+		SDL_Rect c = objs[i].getRect();
+		if (SDL_IntersectRect(&checkRect, &c, &result) ){
+			objs.erase(objs.begin() + i);
+			std::cout << "Erase" << std::endl;
+		
+		}
+	}
 }
 
 
@@ -249,15 +260,12 @@ void Game::draw(GameObject *obj) {
     }
     
 	
-<<<<<<< HEAD
-	for (int k = 0; k < rects.size(); k++) {
-		SDL_RenderFillRect(renderer, &rects[k]);
-	}
+	
 
-	 SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
-=======
+	 SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, &obj->getRect());
+
 	 //SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
->>>>>>> e780b45e493bcb2ccd079e3e7cc51e12029fed41
+
     //Update screen
     SDL_RenderPresent( renderer );
 }

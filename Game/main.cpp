@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include "Game.hpp"
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #undef main
 
 int main(int argc, const char * argv[]) {
