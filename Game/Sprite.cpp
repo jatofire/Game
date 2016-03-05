@@ -31,7 +31,7 @@ SDL_Texture* Sprite::loadTexture( std::string path, SDL_Renderer *renderer )
         
         //Load image at specified path
         SDL_Surface* loadedSurface = IMG_Load( path.c_str() );
-		std::cout << path << std::endl;
+		
         if( loadedSurface == NULL )
         {
             printf( "Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError() );
