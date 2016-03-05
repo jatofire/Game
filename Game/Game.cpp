@@ -26,7 +26,7 @@ void Game::run() {
     
 	
     SDL_Rect renderQuad = { 43, 43, 43, 43 };
-	GameObject *player = new GameObject(&renderQuad, renderer);
+	GameObject *player = new GameObject(renderQuad, renderer);
     
     
     while( !quit )
@@ -75,20 +75,48 @@ void Game::run() {
                     int y = e.button.y;
                     
                     printf("Click x: %d y: %d\n", x, y);
+<<<<<<< HEAD
 					int x_dif = x % 32;
 					int y_dif = y % 32;
 					SDL_Rect r = { x - x_dif, y - y_dif, 32, 32 };
 					rects.push_back(r);
+=======
+                    int dif_x = x % 32;
+                    int dif_y = y % 32;
+                    
+                    SDL_Rect r = { x - dif_x, y - dif_y, 32, 32 };
+                    GameObject o = GameObject(r, renderer);
+                    objs.push_back(o);
+                   // std::cout << objs.size() << std::endl;
+>>>>>>> e780b45e493bcb2ccd079e3e7cc51e12029fed41
 					//player->moveTo(x, y, 1.0f);
                     
                 }
-                /* Quit the application */
+             
+                if(e.button.button == SDL_BUTTON_RIGHT) {
+                    int x = e.button.x;
+                    int y = e.button.y;
+                    
+                    printf("Right Click x: %d y: %d\n", x, y);
+                }
                     
             }
+            
+            
+            
+            
 			if (e.type == SDL_MOUSEMOTION) {
+<<<<<<< HEAD
 				int x = e.button.x;
 				int y = e.button.y;
 				
+=======
+                int x = e.button.x;
+                int y = e.button.y;
+                GameObject *o = objectAt(x, y, &objs);
+            
+            
+>>>>>>> e780b45e493bcb2ccd079e3e7cc51e12029fed41
 			}
             
             
@@ -142,7 +170,7 @@ bool Game::init()
     else
     {
         //Create window
-        window = SDL_CreateWindow( "SDL Tutorial",
+        window = SDL_CreateWindow( "C++ Game",
                                   SDL_WINDOWPOS_UNDEFINED,
                                   SDL_WINDOWPOS_UNDEFINED,
                                   800,
@@ -207,17 +235,29 @@ void Game::draw(GameObject *obj) {
 	}
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0x88);
 	
-	int difX = obj->getRect()->x % 32;
-	int difY = obj->getRect()->y % 32;
+	int difX = obj->getRect().x % 32;
+	int difY = obj->getRect().y % 32;
 
-	SDL_Rect r = {obj->getRect()->x - difX, obj->getRect()->y - difY, obj->getRect()->w, obj->getRect()->h };
+    SDL_Rect r = {obj->getRect().x - difX, obj->getRect().y - difY, obj->getRect().w, obj->getRect().h};
 	SDL_RenderFillRect(renderer, &r);
+    
+    for (int k = 0; k < objs.size(); k++) {
+        // mstd::cout << k << " " << objs[k].getRect().x << std::endl;
+        SDL_Rect r = objs[k].getRect();
+        SDL_RenderFillRect(renderer, &r);
+
+    }
+    
 	
+<<<<<<< HEAD
 	for (int k = 0; k < rects.size(); k++) {
 		SDL_RenderFillRect(renderer, &rects[k]);
 	}
 
 	 SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
+=======
+	 //SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
+>>>>>>> e780b45e493bcb2ccd079e3e7cc51e12029fed41
     //Update screen
     SDL_RenderPresent( renderer );
 }

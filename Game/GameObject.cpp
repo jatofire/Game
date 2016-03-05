@@ -4,7 +4,7 @@ GameObject::GameObject() {
 
 }
 
-GameObject::GameObject(SDL_Rect *rect, SDL_Renderer* renderer)
+GameObject::GameObject(SDL_Rect rect, SDL_Renderer* renderer)
 {
 	this->rect = rect;
 	this->sprite = new Sprite("avatar.png", renderer);
@@ -22,8 +22,8 @@ GameObject::~GameObject()
 
 void GameObject::moveTo(int x, int y)
 {
-	this->rect->x = x;
-	this->rect->y = y;
+	this->rect.x = x;
+	this->rect.y = y;
 }
 
 void GameObject::moveTo(int x, int y, float speed)
@@ -37,12 +37,20 @@ void GameObject::moveTo(int x, int y, float speed)
 
 }
 
+SDL_Color GameObject::getColour() {
+    return colour;
+}
+
+void GameObject::setColour(SDL_Color colour) {
+    this->colour = colour;
+}
+
 Sprite* GameObject::getSprite()
 {
 	return this->sprite;
 }
 
-SDL_Rect* GameObject::getRect()
+SDL_Rect GameObject::getRect()
 {
 	return this->rect;
 }
@@ -56,23 +64,23 @@ void GameObject::update()
 {
 	if (isMoving) {
 		if (movingX) {
-			if (targetX < rect->x) {
-				if (rect->x - targetX < moveSpeed) {
-					rect->x -= rect->x - targetX;
+			if (targetX < rect.x) {
+				if (rect.x - targetX < moveSpeed) {
+					rect.x -= rect.x - targetX;
 					movingX = false;
 				}
 				else {
-					rect->x -= moveSpeed;
+					rect.x -= moveSpeed;
 				}
 			}
-			else if (targetX > rect->x) {
+			else if (targetX > rect.x) {
 
-				if (targetX - rect->x < moveSpeed) {
-					rect->x += targetX - rect->x;
+				if (targetX - rect.x < moveSpeed) {
+					rect.x += targetX - rect.x;
 					movingX = false;
 				}
 				else {
-					rect->x += moveSpeed;
+					rect.x += moveSpeed;
 				}
 
 			}
@@ -80,24 +88,24 @@ void GameObject::update()
 		}
 
 		if (movingY) {
-			if (targetY < rect->y) {
-				if (rect->y - targetY < moveSpeed) {
-					rect->y -= rect->y - targetY;
+			if (targetY < rect.y) {
+				if (rect.y - targetY < moveSpeed) {
+					rect.y -= rect.y - targetY;
 					movingY = false;
 				}
 				else {
-					rect->y -= moveSpeed;
+					rect.y -= moveSpeed;
 				}
 
 
 			}
-			else if (targetY > rect->y) {
-				if (targetY - rect->y < moveSpeed) {
-					rect->y += targetY - rect->y;
+			else if (targetY > rect.y) {
+				if (targetY - rect.y < moveSpeed) {
+					rect.y += targetY - rect.y;
 					movingY = false;
 				}
 				else {
-					rect->y += moveSpeed;
+					rect.y += moveSpeed;
 				}
 
 			}
