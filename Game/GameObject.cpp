@@ -55,6 +55,18 @@ SDL_Rect GameObject::getRect()
 	return this->rect;
 }
 
+SDL_Rect GameObject::getRectCenter()
+{
+	SDL_Rect r;
+	r.x = this->rect.x + this->rect.w / 2;
+	r.y = this->rect.y + this->rect.h / 2;
+	r.w = this->rect.w;
+	r.h = this->rect.h;
+
+	return r;
+
+}
+
 bool GameObject::moving()
 {
 	return isMoving;
@@ -62,21 +74,23 @@ bool GameObject::moving()
 
 void GameObject::update()
 {
+
+
 	if (isMoving) {
 		if (movingX) {
-			if (targetX < rect.x) {
-				if (rect.x - targetX < moveSpeed) {
-					rect.x -= rect.x - targetX;
+			if (targetX < getRectCenter().x) {
+				if (getRectCenter().x - targetX < moveSpeed) {
+					rect.x -= getRectCenter().x - targetX;
 					movingX = false;
 				}
 				else {
 					rect.x -= moveSpeed;
 				}
 			}
-			else if (targetX > rect.x) {
+			else if (targetX > getRectCenter().x) {
 
-				if (targetX - rect.x < moveSpeed) {
-					rect.x += targetX - rect.x;
+				if (targetX - getRectCenter().x < moveSpeed) {
+					rect.x += targetX - getRectCenter().x;
 					movingX = false;
 				}
 				else {
@@ -88,9 +102,9 @@ void GameObject::update()
 		}
 
 		if (movingY) {
-			if (targetY < rect.y) {
-				if (rect.y - targetY < moveSpeed) {
-					rect.y -= rect.y - targetY;
+			if (targetY < getRectCenter().y) {
+				if (getRectCenter().y - targetY < moveSpeed) {
+					rect.y -= getRectCenter().y - targetY;
 					movingY = false;
 				}
 				else {
@@ -99,9 +113,9 @@ void GameObject::update()
 
 
 			}
-			else if (targetY > rect.y) {
-				if (targetY - rect.y < moveSpeed) {
-					rect.y += targetY - rect.y;
+			else if (targetY > getRectCenter().y) {
+				if (targetY - getRectCenter().y < moveSpeed) {
+					rect.y += targetY - getRectCenter().y;
 					movingY = false;
 				}
 				else {

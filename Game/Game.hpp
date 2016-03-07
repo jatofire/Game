@@ -10,9 +10,9 @@
 #define Game_hpp
 
 #include <stdio.h>
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "Sprite.hpp"
-#include "Camera.hpp"
+#include "SDL_ttf.h"
 #include "GameObject.hpp"
 #include <iostream>
 #include <vector>
@@ -38,8 +38,7 @@ public:
     // Variables
     bool quit;
 	std::vector<SDL_Rect> rects;
-    
-    Camera camera;
+	
     GameObject *gCam;
 private:
     

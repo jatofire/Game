@@ -27,7 +27,7 @@ void Game::run() {
 	
     SDL_Rect renderQuad = { 43, 43, 43, 43 };
 	GameObject *player = new GameObject(renderQuad, renderer);
-    SDL_Rect camRect = {20, 0, 800, 450};
+    SDL_Rect camRect = {0, 0, 800, 450};
     
     gCam = new GameObject(camRect, renderer);
     
@@ -57,7 +57,7 @@ void Game::run() {
             else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
             {
               std::cout << "LEFT" << std::endl;
-                camera.x -= 2;
+                
                 gCam->moveTo(gCam->getRect().x + 2, gCam->getRect().y);
               
             }
@@ -85,7 +85,7 @@ void Game::run() {
                     int dif_x = x % 32;
                     int dif_y = y % 32;
                     
-                    SDL_Rect r = { x - dif_x, y - dif_y, 32, 32 };
+                    SDL_Rect r = { x - dif_x - gCam->getRect().x, y - dif_y - gCam->getRect().y, 32, 32 };
                     GameObject o = GameObject(r, renderer);
                     objs.push_back(o);
                    // std::cout << objs.size() << std::endl;
@@ -95,13 +95,14 @@ void Game::run() {
                 }
              
                 if(e.button.button == SDL_BUTTON_RIGHT) {
-                    int x = e.button.x;
-                    int y = e.button.y;
+                    int x = e.button.x - gCam->getRect().x;
+                    int y = e.button.y - gCam->getRect().y;
                     
                     gCam->moveTo(x, y, 1.1f);
                     std::cout << "Cam x: " << gCam->getRect().x << std::endl;
-                    printf("Right Click x: %d y: %d\n", x, y);
-					objectAt(x, y);
+					std::cout << "Cam x center: " << gCam->getRectCenter().x << std::endl;
+                    printf("Right Click x: %d y: %d\n", x - gCam->getRectCenter().x, y - gCam->getRectCenter().y);
+					//objectAt(x, y);
 					//std::cout << "Hello: "  << o.getRect().x << std::endl;
                 }
                     
@@ -178,11 +179,7 @@ bool Game::init()
     //Initialization flag
     bool success = true;
     
-    camera = Camera();
-    camera.width = 800;
-    camera.height = 450;
-    camera.x = 200;
-    camera.y = 200;
+   
     
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
@@ -235,6 +232,16 @@ bool Game::init()
         SDL_SetRenderDrawColor( renderer, 0xFF, 0xFF, 0xFF, 0xFF ); 
         
     }
+
+
+
+
+	
+
+	if (TTF_Init() < 0) {
+		printf("TTF could not be created! SDL Error: %s\n", SDL_GetError());
+	}
+
     
     
     return success;
@@ -251,10 +258,10 @@ void Game::draw(GameObject *obj) {
 	SDL_SetRenderDrawColor(renderer, 0x11, 0x11, 0x11, 0xFF);
 	for (int i = 0; i < 800; i += 32) {
 		//
-			SDL_RenderDrawLine(renderer, i, 0, i, 450);
+			SDL_RenderDrawLine(renderer, i - gCam->getRect().x, 0 - gCam->getRect().y, i - gCam->getRect().x, 450 - gCam->getRect().y);
 	}
 	for (int j = 0; j < 450; j += 32) {
-		SDL_RenderDrawLine(renderer, 0, j, 800, j);
+		SDL_RenderDrawLine(renderer, 0 - gCam->getRect().x, j - gCam->getRect().y, 800 - gCam->getRect().y, j - gCam->getRect().y);
 	}
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0x88);
 	
@@ -267,8 +274,8 @@ void Game::draw(GameObject *obj) {
     for (int k = 0; k < objs.size(); k++) {
         // mstd::cout << k << " " << objs[k].getRect().x << std::endl;
         SDL_Rect r = objs[k].getRect();
-        r.x += gCam->getRect().x;
-        r.y += gCam->getRect().y;
+        r.x -= gCam->getRect().x;
+        r.y -= gCam->getRect().y;
         SDL_RenderFillRect(renderer, &r);
 
     }

@@ -2,7 +2,7 @@
 
 
 #include <stdio.h>
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "Sprite.hpp"
 #include <math.h>
 
@@ -18,6 +18,7 @@ public:
 	void moveTo(int x, int y, float speed);
 	Sprite* getSprite();
 	SDL_Rect getRect();
+	SDL_Rect getRectCenter();
     SDL_Color getColour();
     void setColour(SDL_Color colour);
 	bool moving();
