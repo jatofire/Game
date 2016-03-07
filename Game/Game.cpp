@@ -22,12 +22,14 @@ void Game::run() {
     SDL_Event e;
     float minFrameRate = 1000/60;
     //While application is running
-   
+    
     
 	
     SDL_Rect renderQuad = { 43, 43, 43, 43 };
 	GameObject *player = new GameObject(renderQuad, renderer);
+    SDL_Rect camRect = {20, 0, 800, 450};
     
+    gCam = new GameObject(camRect, renderer);
     
     while( !quit )
     {
@@ -55,6 +57,8 @@ void Game::run() {
             else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
             {
               std::cout << "LEFT" << std::endl;
+                camera.x -= 2;
+                gCam->moveTo(gCam->getRect().x + 2, gCam->getRect().y);
               
             }
             else if( currentKeyStates[ SDL_SCANCODE_W] )
@@ -94,6 +98,8 @@ void Game::run() {
                     int x = e.button.x;
                     int y = e.button.y;
                     
+                    gCam->moveTo(x, y, 1.1f);
+                    std::cout << "Cam x: " << gCam->getRect().x << std::endl;
                     printf("Right Click x: %d y: %d\n", x, y);
 					objectAt(x, y);
 					//std::cout << "Hello: "  << o.getRect().x << std::endl;
@@ -124,7 +130,7 @@ void Game::run() {
         
         // Handle Update
 		player->update();
-        
+        gCam->update();
         // Handle Rendering
         
         
@@ -171,6 +177,12 @@ bool Game::init()
 {
     //Initialization flag
     bool success = true;
+    
+    camera = Camera();
+    camera.width = 800;
+    camera.height = 450;
+    camera.x = 200;
+    camera.y = 200;
     
     //Initialize SDL
     if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )
@@ -246,15 +258,17 @@ void Game::draw(GameObject *obj) {
 	}
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0x88);
 	
-	int difX = obj->getRect().x % 32;
-	int difY = obj->getRect().y % 32;
+	//int difX = obj->getRect().x % 32;
+	//int difY = obj->getRect().y % 32;
 
-    SDL_Rect r = {obj->getRect().x - difX, obj->getRect().y - difY, obj->getRect().w, obj->getRect().h};
-	SDL_RenderFillRect(renderer, &r);
+    //SDL_Rect r = {obj->getRect().x - difX, obj->getRect().y - difY, obj->getRect().w, obj->getRect().h};
+	//SDL_RenderFillRect(renderer, &r);
     
     for (int k = 0; k < objs.size(); k++) {
         // mstd::cout << k << " " << objs[k].getRect().x << std::endl;
         SDL_Rect r = objs[k].getRect();
+        r.x += gCam->getRect().x;
+        r.y += gCam->getRect().y;
         SDL_RenderFillRect(renderer, &r);
 
     }
@@ -262,7 +276,7 @@ void Game::draw(GameObject *obj) {
 	
 	
 
-	 SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, &obj->getRect());
+	 //SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, &obj->getRect());
 
 	 //SDL_RenderCopy( renderer, obj->getSprite()->texture, obj->getSprite()->sourceRect, obj->getRect());
 
