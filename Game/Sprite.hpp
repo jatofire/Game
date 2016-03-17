@@ -13,11 +13,11 @@
 #include "SDL_image.h"
 #include <iostream>
 
-class Sprite {
+class Sprite{
 
 public:
 
-    Sprite(std::string t, SDL_Renderer *r);
+	Sprite(std::string t, SDL_Renderer *r);
     
     SDL_Texture* texture;
     SDL_Rect* targetRect;

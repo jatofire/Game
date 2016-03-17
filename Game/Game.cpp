@@ -258,10 +258,10 @@ void Game::draw(GameObject *obj) {
 	SDL_SetRenderDrawColor(renderer, 0x11, 0x11, 0x11, 0xFF);
 	for (int i = 0; i < 800; i += 32) {
 		//
-			SDL_RenderDrawLine(renderer, i - gCam->getRect().x, 0 - gCam->getRect().y, i - gCam->getRect().x, 450 - gCam->getRect().y);
+			SDL_RenderDrawLine(renderer, i - gCam->getRect().x, 0, i - gCam->getRect().x, 450);
 	}
 	for (int j = 0; j < 450; j += 32) {
-		SDL_RenderDrawLine(renderer, 0 - gCam->getRect().x, j - gCam->getRect().y, 800 - gCam->getRect().y, j - gCam->getRect().y);
+		SDL_RenderDrawLine(renderer, 0, j - gCam->getRect().y , 800, j - gCam->getRect().y);
 	}
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0x88);
 	

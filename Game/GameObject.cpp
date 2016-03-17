@@ -74,23 +74,21 @@ bool GameObject::moving()
 
 void GameObject::update()
 {
-
-
 	if (isMoving) {
 		if (movingX) {
-			if (targetX < getRectCenter().x) {
-				if (getRectCenter().x - targetX < moveSpeed) {
-					rect.x -= getRectCenter().x - targetX;
+			if (targetX < rect.x) {
+				if (rect.x - targetX < moveSpeed) {
+					rect.x -= rect.x - targetX;
 					movingX = false;
 				}
 				else {
 					rect.x -= moveSpeed;
 				}
 			}
-			else if (targetX > getRectCenter().x) {
+			else if (targetX > rect.x) {
 
-				if (targetX - getRectCenter().x < moveSpeed) {
-					rect.x += targetX - getRectCenter().x;
+				if (targetX - rect.x < moveSpeed) {
+					rect.x += targetX - rect.x;
 					movingX = false;
 				}
 				else {
@@ -102,9 +100,9 @@ void GameObject::update()
 		}
 
 		if (movingY) {
-			if (targetY < getRectCenter().y) {
-				if (getRectCenter().y - targetY < moveSpeed) {
-					rect.y -= getRectCenter().y - targetY;
+			if (targetY < rect.y) {
+				if (rect.y - targetY < moveSpeed) {
+					rect.y -= rect.y - targetY;
 					movingY = false;
 				}
 				else {
@@ -113,9 +111,9 @@ void GameObject::update()
 
 
 			}
-			else if (targetY > getRectCenter().y) {
-				if (targetY - getRectCenter().y < moveSpeed) {
-					rect.y += targetY - getRectCenter().y;
+			else if (targetY > rect.y) {
+				if (targetY - rect.y < moveSpeed) {
+					rect.y += targetY - rect.y;
 					movingY = false;
 				}
 				else {
@@ -132,5 +130,4 @@ void GameObject::update()
 
 	}
 }
-
 
